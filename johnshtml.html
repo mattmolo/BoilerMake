@@ -18,7 +18,8 @@
     var point2=[5, 2];
     var point3=[7,4];
     var point4=[10,1];
-    var allPoints=[point1, point2, point3, point4];
+    var point5=[12,10];
+    var allPoints=[point1, point2, point3, point4, point5];
     var shiftedPoints;
     var referenceShiftX = canvas.width/10;
     var referenceShiftY = canvas.height/10;
@@ -47,6 +48,7 @@
         initializeAxis(myHeight, myWidth);
         shiftPoints(allPoints, canvas.width/40);
         renderSet(shiftedPoints);
+        renderUser();
       }
       function reinitializeWhole(){
           if( typeof( window.innerWidth ) == 'number' ) {
@@ -70,15 +72,16 @@
         context.fillRect(0,0,myWidth,myHeight);
         shiftPoints(allPoints, canvas.width/40);
         renderSet(shiftedPoints);
+        renderUser();
       }
       function initializeAxis(screenHeight, screenWidth)
       {
             context.beginPath();
             context.moveTo(10, 0);
             context.quadraticCurveTo(10, screenHeight/2 , 10 , screenHeight);
-            context.moveTo(10,screenHeight-5);
-            context.quadraticCurveTo(screenWidth/2, screenHeight-5, screenWidth , screenHeight-5);
-            context.lineWidth = 10;
+            context.moveTo(10,screenHeight-2);
+            context.quadraticCurveTo(screenWidth/2, screenHeight-2, screenWidth , screenHeight-2);
+            context.lineWidth = 5;
             context.strokeStyle = 'black';
             context.stroke();
       }
@@ -106,7 +109,7 @@
       }
       function renderSet(shifted)
       {
-              context.fillStyle = "#FFFFFF";
+        context.fillStyle = "#FFFFFF";
         context.fillRect( 0 , 0 , myWidth , myHeight );
         context.stroke();
         var i = 0;
@@ -124,6 +127,11 @@
             var y = allPoints[i][1] * scale;
             shiftedPoints.push( [x,y] );
         }
+      }
+      function renderUser()
+      {
+        var newSet = [ [10 , myHeight-20], [myWidth - 20, myHeight-20]];
+        calculatePath(newSet[0], newSet[1], 5);
       }
     </script>
   </body>
