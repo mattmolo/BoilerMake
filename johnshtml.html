@@ -19,11 +19,15 @@
     var point3=[350,200];
     var point4=[500,50];
     var allPoints=[point1, point2, point3, point4];
+    var shiftedPoints = 0;
+    var referenceShiftX = canvas.width/10;
+    var referenceShiftY = canvas.height/10;
     initializeWhole();
     window.onresize=function(){
       reinitializeWhole();
     }
     function initializeWhole(){
+        //Initializes 
         if( typeof( window.innerWidth ) == 'number' ) {
         //Non-IE
         myWidth = window.innerWidth;
@@ -41,6 +45,8 @@
         myHeight -= 5;
         canvas.height = myHeight;
         initializeAxis(myHeight, myWidth);
+        referenceShiftX = myWidth/10;
+        referenceShiftY = myHeight/10;
         renderSet(allPoints);
       }
       function reinitializeWhole(){
@@ -61,6 +67,8 @@
         myHeight -= 5;
         canvas.height = myHeight;
         initializeAxis(myHeight, myWidth);
+        referenceShiftX = myWidth/10;
+        referenceShiftY = myHeight/10;
         renderSet(allPoints);
       }
       function initializeAxis(screenHeight, screenWidth)
@@ -73,18 +81,18 @@
             context.lineWidth = 10;
             context.strokeStyle = 'black';
             context.stroke();
-            
       }
       function calculatePath(point1, point2, lineWidth){
-      point1[0] -= 3;
+      tempPoint1 = [point1[0], point1[1]];
+      tempPoint1[0] -= 3;
       context.beginPath();
-      context.moveTo(point1[0], point1[1]);
-      var midpoint = (point1[0]+point2[0])/2;
+      context.moveTo(tempPoint1[0], point1[1]);
+      var midpoint = (tempPoint1[0]+point2[0])/2;
             if (point1[1] == point2[1])
             {
                 context.quadraticCurveTo(midpoint,point1[1],point2[0],point2[1]);
             }
-            else if (point1[0] == point2[0])
+            else if (tempPoint1[0] == point2[0])
             {
                 context.quadraticCurveTo(midpoint,(point1[1]+point2[1])/2,point2[0],point2[1]);
             }
@@ -102,6 +110,13 @@
         for (i = 1; i < allPoints.length; i++)
         {
             calculatePath(allPoints[i-1], allPoints[i], 5);
+        }
+      }
+      function shiftPoints(allPoints, scale)
+      {
+        for(var i = 0; i < allPoints.length; i++)
+        {
+            shiftedPoints[i] = allPoints[i] * scale;
         }
       }
     </script>
