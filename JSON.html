@@ -20,7 +20,7 @@
 
 
     function httpGet() {
-        var req = new xmlHttpRequest();
+        var req = new XMLHttpRequest();
         req.open("GET", "http://mc.mattmolo.com/stuff.json", true);
         req.send(null);
         window.alert(req.people[0].name);
