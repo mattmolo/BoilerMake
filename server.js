@@ -12,10 +12,10 @@ app.listen(8000);
 app.use('/static', express.static(__dirname + '/'));
 
 var people = []
-people.push( [ [10,50] , [20,70] , [30,60] , [50,60] ])
-people.push( [ [10,30] , [20,40] , [30,70] , [50,60] ])
-people.push( [ [10,20] , [20,0]  , [30,60] , [50,60] ])
-people.push( [ [10,70] , [20,0]  , [30,80] , [50,60] ])
+people.push( [ [0,3] , [10,2] , [20,5] , [30,8] , [50,2] ])
+people.push( [ [0,4] , [10,5] , [20,12] , [30,3] , [50,7] ])
+people.push( [ [0,3] , [10,19] , [20,5]  , [30,10] , [50,10] ])
+people.push( [ [0,2] , [20,18]  , [30,5] , [30, 10] , [50,3] ])
 
 app.get('/coordinates', function(req, res) {
 	var base = parseInt(req.query.base) || 0
