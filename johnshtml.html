@@ -9,7 +9,7 @@
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
-  <body>
+  <body style="overflow: hidden;">
     <div id="nameSection" style="float: left; background-color: red" width=10%>
     </div>
     <div style="margin-left: 25px">
@@ -67,7 +67,7 @@
             myWidth = document.body.clientWidth;
             myHeight = document.body.clientHeight;
         }
-        canvas.width = myWidth;
+        canvas.width = myWidth - 45;
         myHeight -= 20;
         canvas.height = myHeight;
         context.fillStyle = backgroundColor;
@@ -92,7 +92,7 @@
             myWidth = document.body.clientWidth;
             myHeight = document.body.clientHeight;
         }
-        canvas.width = myWidth;
+        canvas.width = myWidth - 45;
         myHeight -= 20;
         canvas.height = myHeight;
         initializeAxis(myHeight, myWidth);
@@ -189,13 +189,42 @@
       }
       function leftBar()
       {
+      var naming, canvask, contextk, attribute;
         for (var k = 0; k < group1.length; k++)
         {
-            $('#nameSection').append("<div id=\"k" + k + "\" > fdfd </div>");
+            $('#nameSection').append("<div id=\"k" + k + "\" ></div>");
             $('#k'+k).css("position", 'absolute');
-            $('#k'+k).css("margin-top",(group1[k][0][1] * canvas.width/40 - 8) + "px");
+            $('#k'+k).css("margin-top",(group1[k][0][1] * canvas.width/40 - 13) + "px");
+            $('#k'+k).css("margin-left","3px");
+            $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\"></canvas>");
+            naming = "canvas"+k;
+            //attribute = getElementById(naming);
+           // attribute.heightShift = (group1[k][0][1] * canvas.width/40);
+            //alert(naming);
+            canvask = document.getElementById(naming);
+            contextk = canvask.getContext('2d');
+            contextk.fillStyle = colorArray[k];
+            contextk.fillRect(2,2,24,24);
            // 
         }
+      }
+      function squareMouseOver(element)
+      {
+      var contextLocal = element.getContext('2d');
+      contextLocal.beginPath();
+      contextLocal.rect(0,0,28,28);
+      contextLocal.lineWidth = 2;
+      contextLocal.strokeStyle = 'black';
+      contextLocal.stroke();      
+      }
+      function squareMouseOut(element)
+      {
+      var contextLocal = element.getContext('2d');
+      contextLocal.beginPath();
+      contextLocal.rect(0,0,28,28);
+      contextLocal.lineWidth = 2;
+      contextLocal.strokeStyle = backgroundColor;
+      contextLocal.stroke(); 
       }
     </script>
   </body>
