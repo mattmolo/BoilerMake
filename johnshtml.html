@@ -20,10 +20,11 @@
     var referenceShiftX = canvas.width/10;
     var referenceShiftY = canvas.height/10;
     var color = 'black';
-    var backgroundColor = 'black';
-    var axisColor = 'red';
+    var backgroundColor = 'white';
+    var axisColor = "#33B5E5";
     //UNCOMMENT THE STUFF BELOW TO GET THIS TO WORK AGAIN. COMMENT OUT THE group1 ASSIGNMENT TOO
-    //var colorArray = ['black', 'grey', 
+    var colorArray = ["#33B5E5", "#AA66CC", "#99CC00", "#FFBB33", "#FF4444", "#0099CC", "#9933CC", "#669900", "#FF8800", "#CC0000"]
+    var colorCounter = 0;
  //   $.getJSON("/coordinates?base=0", function(data) {
  //       group1 = data;
        var point1=[0.34,3];
@@ -32,10 +33,13 @@
         var point4=[10,1];
         var point5=[12,10];
         var allPoints=[point1, point2, point3, point4, point5, [20,9],[35,5]];
-        allPoints.color = "#FF0000";
+        allPoints.color = "#FF4444";
         var user2=[[0.34,5],[5,19],[7,15],[10,10],[12,15],[20,8],[35,1]];
-        user2.color = 'green';
-        group1 = [allPoints, user2];
+        var user3  = [[0.34, 10], [10, 14]];
+        var user4 = [[0.34, 15], [12, 6]];
+        var user5 = [[0.34, 18], [25, 17]];
+        user2.color = "#AA66CC";
+        group1 = [allPoints, user2, user3, user4, user5];
         
         initializeWhole();
  //   })
@@ -151,7 +155,7 @@
       }
       function renderUser()
       {
-        color = 'RoyalBlue';
+        color = "#99CC00";
         var newSet = [ [15 , myHeight-20], [myWidth - 20, myHeight-20]];
         calculatePath(newSet[0], newSet[1], 5);
         //arrow calculating
@@ -162,10 +166,12 @@
       {
         for(var i = 0; i < group.length; i++)
         {
-            if (group[i].color)
+            if (colorCounter == colorArray.length)
             {
-                color = group[i].color;
+                colorCounter = 0;
             }
+            color = colorArray[colorCounter];
+            colorCounter++;
             shiftPoints(group[i], canvas.width/40);
             renderSet(shiftedPoints);
             color = 'black';
