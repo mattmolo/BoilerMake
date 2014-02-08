@@ -1,6 +1,6 @@
-var myJSONObject = {"bindings": [
-        {"ircEvent": "PRIVMSG", "method": "newURI", "regex": "^http://.*"},
-        {"ircEvent": "PRIVMSG", "method": "deleteURI", "regex": "^delete.*"},
-        {"ircEvent": "PRIVMSG", "method": "randomURI", "regex": "^random.*"}
+var jsonThings = {"people": [
+        {"name": "John", "Initial": "L"},
+        {"name": "Matt", "Initial": "M"},
+        {"name": "Flor", "Initial": "A"}
     ]
 };
