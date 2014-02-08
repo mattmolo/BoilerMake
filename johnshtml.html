@@ -20,7 +20,7 @@
     var point4=[10,1];
     var point5=[12,10];
     var allPoints=[point1, point2, point3, point4, point5];
-    var user2=[[1,5],[5,10],[7,5],[10,2],[12,5]];
+    var user2=[[1,5],[5,19],[7,15],[10,10],[12,15]];
     var group1 = [allPoints, user2];
     var shiftedPoints;
     var referenceShiftX = canvas.width/10;
@@ -48,8 +48,7 @@
         myHeight -= 5;
         canvas.height = myHeight;
         initializeAxis(myHeight, myWidth);
-        shiftPoints(allPoints, canvas.width/40);
-        renderSet(shiftedPoints);
+        renderGroup(group1);
         renderUser();
       }
       function reinitializeWhole(){
@@ -73,8 +72,7 @@
         context.fillStyle = "#FFFFFF";
         context.fillRect(0,0,myWidth,myHeight);
         context.stroke();
-        shiftPoints(allPoints, canvas.width/40);
-        renderSet(shiftedPoints);
+        renderGroup(group1);
         renderUser();
       }
       function initializeAxis(screenHeight, screenWidth)
@@ -116,6 +114,11 @@
         for (i = 1; i < shifted.length; i++)
         {
             calculatePath(shifted[i-1], shifted[i], 5);
+            context.beginPath();
+            //context.arc(shifted[i][0],shifted[i][1], 0, 2 * Math.PI, false);
+            //context.fillStyle = 'black';
+            //context.fill();
+            //context.stroke();  //dot calculation
         }
       }
       function shiftPoints(allPoints, scale)
