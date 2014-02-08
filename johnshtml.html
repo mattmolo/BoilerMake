@@ -40,11 +40,12 @@
         var allPoints=[point1, point2, point3, point4, point5, [20,9],[35,5]];
         allPoints.color = "#FF4444";
         var user2=[[0.34,5],[5,19],[7,15],[10,10],[12,15],[20,8],[35,1]];
-        var user3  = [[0.34, 10], [10, 14]];
+        var user3  = [[0.34, 10], [10, 14], [15,14], [20, 20]];
         var user4 = [[0.34, 15], [12, 6]];
         var user5 = [[0.34, 18], [25, 17]];
         user2.color = "#AA66CC";
         group1 = [allPoints, user2, user3, user4, user5];
+        group1names = ["allPoints", "user2", "user3", "user4", "user5"];
         
         initializeWhole();
  //   })
@@ -145,6 +146,7 @@
         {
             calculatePath(shifted[i-1], shifted[i], 5);
             context.beginPath();
+            createHoverableDot(shifted[i][0],shifted[i][1],4);
             context.arc(shifted[i][0],shifted[i][1],4, 0, 2 * Math.PI, false);
             context.fill();
             context.stroke();  //dot calculation
@@ -182,7 +184,7 @@
             }
             color = colorArray[colorCounter];
             colorCounter++;
-            shiftPoints(group[i], canvas.width/40);
+            shiftPoints(group[i], canvas.height/30);
             renderSet(shiftedPoints);
             color = 'black';
         }
@@ -194,13 +196,14 @@
         {
             $('#nameSection').append("<div id=\"k" + k + "\" ></div>");
             $('#k'+k).css("position", 'absolute');
-            $('#k'+k).css("margin-top",(group1[k][0][1] * canvas.width/40 - 13) + "px");
+            $('#k'+k).css("margin-top",(group1[k][0][1] * canvas.height/30 - 13) + "px");
             $('#k'+k).css("margin-left","3px");
             $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\"></canvas>");
             naming = "canvas"+k;
             //alert(naming);
             canvask = document.getElementById(naming);
-            canvask.heightShift = (group1[k][0][1] * canvas.width/40);
+            canvask.heightShift = (group1[k][0][1] * canvas.height/30);
+            canvask.userID = group1names[k];
             contextk = canvask.getContext('2d');
             contextk.fillStyle = colorArray[k];
             contextk.fillRect(2,2,24,24);
@@ -209,22 +212,77 @@
       }
       function squareMouseOver(element)
       {
-      var contextLocal = element.getContext('2d');
-      contextLocal.beginPath();
-      contextLocal.rect(0,0,28,28);
-      contextLocal.lineWidth = 2;
-      contextLocal.strokeStyle = 'grey';
-      contextLocal.stroke();      
+          var contextLocal = element.getContext('2d');
+          contextLocal.beginPath();
+          contextLocal.rect(0,0,28,28);
+          contextLocal.lineWidth = 2;
+          contextLocal.strokeStyle = 'grey';
+          contextLocal.stroke();      
+          var newCanvas = document.createElement('canvas');
+          newCanvas.id = 'canvasTemp';
+          newCanvas.width = 100;
+          newCanvas.height = 40;
+          newCanvas.style.position = "absolute";
+          newCanvas.style.marginTop = "3px";
+          newCanvas.style.marginLeft = "5px";
+          element.parentNode.appendChild(newCanvas);
+          //alert("canvas created");
+          //var newCanvasStore = getElementById('canvasTemp');
+          var newCanvasCtx = newCanvas.getContext('2d');
+          //alert(newCanvasCtx);
+          newCanvasCtx.font = "15px Tahoma";
+          newCanvasCtx.fillStyle = colorArray[Math.floor((Math.random()*5))];
+          var rgb = hexToRgb(newCanvasCtx.fillStyle);
+          newCanvasCtx.fillStyle = "rgba(" + rgb["r"] + "," +rgb["g"] + "," + rgb["b"] + ",1)";
+          //newCanvasCtx.fillStyle = "rgba(0, 153, 204, 0.6)";
+          newCanvasCtx.fillRect(0,20,100,20);
+          newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
+          newCanvasCtx.fillText(element.userID,2,35);
       }
       function squareMouseOut(element)
       {
-      var contextLocal = element.getContext('2d');
-      contextLocal.beginPath();
-      contextLocal.rect(0,0,28,28);
-      contextLocal.lineWidth = 2;
-      contextLocal.strokeStyle = backgroundColor;
-      contextLocal.stroke(); 
+          var contextLocal = element.getContext('2d');
+          contextLocal.beginPath();
+          contextLocal.rect(0,0,28,28);
+          contextLocal.lineWidth = 2;
+          contextLocal.strokeStyle = backgroundColor;
+          contextLocal.stroke(); 
+          element.parentNode.removeChild(canvasTemp);
+          //alert("removed element");
       }
+      function hexToRgb(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+      }   
+      function createHoverableDot(x,y,radius)
+      {
+        var canvasTemp = document.createElement('canvas');
+        canvasTemp.class = "Nodes";
+        canvasTemp.width = radius*3;
+        canvasTemp.height = radius*3;
+        canvasTemp.style.position = "absolute";
+        canvasTemp.style.marginTop = y - 6 + "px";
+        canvasTemp.style.marginLeft = x+ 18 + "px";
+        canvasTemp.onmouseover=function(){
+            
+        
+        };
+        nameSection.appendChild(canvasTemp);
+        //var newCanvasCtx = canvasTemp.getContext('2d');
+        //newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        //newCanvasCtx.fillRect(0,0,canvasTemp.width,canvasTemp.height);
+      }
+      
     </script>
   </body>
 </html>
