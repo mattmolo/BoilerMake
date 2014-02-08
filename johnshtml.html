@@ -30,6 +30,8 @@
     //UNCOMMENT THE STUFF BELOW TO GET THIS TO WORK AGAIN. COMMENT OUT THE group1 ASSIGNMENT TOO
     var colorArray = ["#33B5E5", "#AA66CC", "#99CC00", "#FFBB33", "#FF4444", "#0099CC", "#9933CC", "#669900", "#FF8800", "#CC0000"]
     var colorCounter = 0;
+    var colorCounter2 = 0;
+    var nameCounter = 0;
  //   $.getJSON("/coordinates?base=0", function(data) {
  //       group1 = data;
        var point1=[0.34,3];
@@ -100,10 +102,11 @@
         context.fillStyle = backgroundColor;
         context.fillRect(0,0,myWidth,myHeight);
         context.stroke();
-        renderGroup(group1);
-        renderUser();
+
         $('#nameSection').empty();
         $('#nameSection').height(myHeight);
+                renderGroup(group1);
+        renderUser();
         leftBar();
       }
       function initializeAxis(screenHeight, screenWidth)
@@ -142,15 +145,22 @@
       function renderSet(shifted)
       {
         var i = 0;
+        if (colorCounter2 == 10)
+            {
+                colorCounter2 = 0;
+            }
         for (i = 1; i < shifted.length; i++)
         {
+
             calculatePath(shifted[i-1], shifted[i], 5);
             context.beginPath();
-            createHoverableDot(shifted[i][0],shifted[i][1],4);
+            createHoverableDot(shifted[i][0],shifted[i][1],4,colorArray[colorCounter2],group1names[nameCounter]);
             context.arc(shifted[i][0],shifted[i][1],4, 0, 2 * Math.PI, false);
             context.fill();
             context.stroke();  //dot calculation
         }
+        colorCounter2++;
+        nameCounter++;
         context.setLineDash([5]);
         calculatePath(shifted[shifted.length-1], [shifted[shifted.length-1][0]+myWidth,shifted[shifted.length-1][1]], 5);
         context.setLineDash([0])
@@ -264,33 +274,58 @@
             b: parseInt(result[3], 16)
         } : null;
       }   
-      function createHoverableDot(x,y,radius)
+      function createHoverableDot(x,y,radius,color,names)
       {
       
         var canvasTemp = document.createElement('canvas');
         canvasTemp.width = radius*4;
         canvasTemp.height = radius*4;
+        canvasTemp.style.zIndex = 3;
         canvasTemp.style.position = "absolute";
         canvasTemp.style.marginTop = y - 8 + "px";
         canvasTemp.style.marginLeft = x+ 17 + "px";
         nameSection.appendChild(canvasTemp);
-        canvasTemp.onmouseenter = function()
+        canvasTemp.onmouseover = function()
         {
             var canvasTemp2 = document.createElement('canvas');
             canvasTemp2.id="newId";
             canvasTemp2.width = radius*4;
             canvasTemp2.height = radius*4;
+            canvasTemp2.style.zIndex = 0;
             canvasTemp2.style.position = "absolute";
             canvasTemp2.style.marginTop = y - 8 + "px";
             canvasTemp2.style.marginLeft = x+ 17 + "px";
             nameSection.appendChild(canvasTemp2);
             var newCanvasCtx = canvasTemp2.getContext('2d');
-            newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            newCanvasCtx.fillRect(0,0,canvasTemp2.width,canvasTemp2.height);
+            newCanvasCtx.beginPath();
+            newCanvasCtx.fillStyle = color;
+            //newCanvasCtx.fillRect(0,0,canvasTemp2.width,canvasTemp2.height);
+            //newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            newCanvasCtx.arc(radius*2,radius*2, 8, 0, 2 * Math.PI, false);
+            newCanvasCtx.fill();
+            newCanvasCtx.stroke(); 
+            
+            var canvasData = document.createElement('canvas');
+            canvasData.id="newId2";
+            canvasData.width = 100 + names.length * 6;
+            canvasData.height = 20;
+            canvasData.style.position = "absolute";
+            canvasData.style.marginTop = y + 6 + "px";
+            canvasData.style.marginLeft = x + 28 + "px";
+            nameSection.appendChild(canvasData);
+            var canvasDataCtx = canvasData.getContext('2d');
+            
+            canvasDataCtx.font = "15px Tahoma";
+            canvasDataCtx.fillStyle=color;
+            canvasDataCtx.fillRect(0,0,100 + names.length * 6,20);
+            canvasDataCtx.fillStyle = 'black';
+            canvasDataCtx.fillText(names+" ["+Math.round(x)+" , "+Math.round(y)+"] ",5,15);
         };
-        canvasTemp.onmouseleave = function deleteDotOverlay()
+        canvasTemp.onmouseout = function deleteDotOverlay()
           {
           var element1 = document.getElementById("newId");
+          element1.parentNode.removeChild(element1);
+          element1 = document.getElementById("newId2");
           element1.parentNode.removeChild(element1);
           };
       }
