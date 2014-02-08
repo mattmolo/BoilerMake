@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>GETTING STARTED WITH BRACKETS</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    
+    
+    
+    <table>
+    <tr>  
+    </tr>
+        
+        
+    <tr>
+    <input onclick="httpGet()" type="button" name="submit" value="Generate Code"/>
+    </tr>
+    
+    
+    
+    </table>
+
+    <script type="text/javascript">
+    function httpGet() {;
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "https://api.github.com/users/mralexgray/repos", false );
+        xmlHttp.send( null );
+        var jsonResponse = JSON.parse(xmlHttp.responseText);
+        window.alert(jsonResponse[5]);
+    }
+    </script>
+
+
+</html>
