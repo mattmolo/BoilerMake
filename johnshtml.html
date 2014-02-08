@@ -10,7 +10,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body>
-    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+    <canvas id="myCanvas" width="1920" height="1080" bgcolor="black"></canvas>
     <script>
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
@@ -19,17 +19,26 @@
     var shiftedPoints;
     var referenceShiftX = canvas.width/10;
     var referenceShiftY = canvas.height/10;
-    $.getJSON("/coordinates?base=0", function(data) {
-        group1 = data;
-       // var point1=[1,3];
-       // var point2=[5, 2];
-        //var point3=[7,4];
-        //var point4=[10,1];
-        //var point5=[12,10];
-        //var allPoints=[point1, point2, point3, point4, point5];
-        //var user2=[[1,5],[5,19],[7,15],[10,10],[12,15]];
+    var color = 'black';
+    var backgroundColor = 'black';
+    var axisColor = 'red';
+    //UNCOMMENT THE STUFF BELOW TO GET THIS TO WORK AGAIN. COMMENT OUT THE group1 ASSIGNMENT TOO
+    //var colorArray = ['black', 'grey', 
+ //   $.getJSON("/coordinates?base=0", function(data) {
+ //       group1 = data;
+       var point1=[0.34,3];
+        var point2=[5, 2];
+        var point3=[7,4];
+        var point4=[10,1];
+        var point5=[12,10];
+        var allPoints=[point1, point2, point3, point4, point5, [20,9],[35,5]];
+        allPoints.color = "#FF0000";
+        var user2=[[0.34,5],[5,19],[7,15],[10,10],[12,15],[20,8],[35,1]];
+        user2.color = 'green';
+        group1 = [allPoints, user2];
+        
         initializeWhole();
-    })
+ //   })
 
     window.onresize=function(){
       reinitializeWhole();
@@ -52,6 +61,8 @@
         canvas.width = myWidth;
         myHeight -= 5;
         canvas.height = myHeight;
+        context.fillStyle = backgroundColor;
+        context.fillRect(0,0, myWidth, myHeight);
         initializeAxis(myHeight, myWidth);
         renderGroup(group1);
         renderUser();
@@ -74,7 +85,7 @@
         myHeight -= 5;
         canvas.height = myHeight;
         initializeAxis(myHeight, myWidth);
-        context.fillStyle = "#FFFFFF";
+        context.fillStyle = backgroundColor;
         context.fillRect(0,0,myWidth,myHeight);
         context.stroke();
         renderGroup(group1);
@@ -88,7 +99,7 @@
             context.moveTo(10,screenHeight-2);
             context.quadraticCurveTo(screenWidth/2, screenHeight-2, screenWidth , screenHeight-2);
             context.lineWidth = 5;
-            context.strokeStyle = 'black';
+            context.strokeStyle = axisColor;
             context.stroke();
       }
       function calculatePath(point1, point2, lineWidth){
@@ -110,7 +121,7 @@
                 context.quadraticCurveTo(midpoint,point1[1],point2[0],point2[1]);
             }
       context.lineWidth = lineWidth;
-      context.strokeStyle = 'black';
+      context.strokeStyle = color;
       context.stroke();
       }
       function renderSet(shifted)
@@ -120,11 +131,13 @@
         {
             calculatePath(shifted[i-1], shifted[i], 5);
             context.beginPath();
-            //context.arc(shifted[i][0],shifted[i][1], 0, 2 * Math.PI, false);
-            //context.fillStyle = 'black';
-            //context.fill();
-            //context.stroke();  //dot calculation
+            context.arc(shifted[i][0],shifted[i][1],4, 0, 2 * Math.PI, false);
+            context.fill();
+            context.stroke();  //dot calculation
         }
+        context.setLineDash([5]);
+        calculatePath(shifted[shifted.length-1], [shifted[shifted.length-1][0]+myWidth,shifted[shifted.length-1][1]], 5);
+        context.setLineDash([0])
       }
       function shiftPoints(allPoints, scale)
       {
@@ -138,7 +151,8 @@
       }
       function renderUser()
       {
-        var newSet = [ [10 , myHeight-20], [myWidth - 20, myHeight-20]];
+        color = 'RoyalBlue';
+        var newSet = [ [15 , myHeight-20], [myWidth - 20, myHeight-20]];
         calculatePath(newSet[0], newSet[1], 5);
         //arrow calculating
         calculatePath([newSet[1][0]+3,newSet[1][1]], [newSet[1][0]-10,newSet[1][1]-10], 5);
@@ -148,8 +162,13 @@
       {
         for(var i = 0; i < group.length; i++)
         {
+            if (group[i].color)
+            {
+                color = group[i].color;
+            }
             shiftPoints(group[i], canvas.width/40);
             renderSet(shiftedPoints);
+            color = 'black';
         }
       }
 
