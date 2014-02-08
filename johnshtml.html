@@ -266,23 +266,36 @@
       }   
       function createHoverableDot(x,y,radius)
       {
-        var canvasTemp = document.createElement('canvas');
-        canvasTemp.class = "Nodes";
-        canvasTemp.width = radius*3;
-        canvasTemp.height = radius*3;
-        canvasTemp.style.position = "absolute";
-        canvasTemp.style.marginTop = y - 6 + "px";
-        canvasTemp.style.marginLeft = x+ 18 + "px";
-        canvasTemp.onmouseover=function(){
-            
-        
-        };
-        nameSection.appendChild(canvasTemp);
-        //var newCanvasCtx = canvasTemp.getContext('2d');
-        //newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
-        //newCanvasCtx.fillRect(0,0,canvasTemp.width,canvasTemp.height);
-      }
       
+        var canvasTemp = document.createElement('canvas');
+        canvasTemp.width = radius*4;
+        canvasTemp.height = radius*4;
+        canvasTemp.style.position = "absolute";
+        canvasTemp.style.marginTop = y - 8 + "px";
+        canvasTemp.style.marginLeft = x+ 17 + "px";
+        nameSection.appendChild(canvasTemp);
+        canvasTemp.onmouseenter = function()
+        {
+            var canvasTemp2 = document.createElement('canvas');
+            canvasTemp2.id="newId";
+            canvasTemp2.width = radius*4;
+            canvasTemp2.height = radius*4;
+            canvasTemp2.style.position = "absolute";
+            canvasTemp2.style.marginTop = y - 8 + "px";
+            canvasTemp2.style.marginLeft = x+ 17 + "px";
+            nameSection.appendChild(canvasTemp2);
+            var newCanvasCtx = canvasTemp2.getContext('2d');
+            newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            newCanvasCtx.fillRect(0,0,canvasTemp2.width,canvasTemp2.height);
+        };
+        canvasTemp.onmouseleave = function deleteDotOverlay()
+          {
+          var element1 = document.getElementById("newId");
+          element1.parentNode.removeChild(element1);
+          };
+      }
+
+
     </script>
   </body>
 </html>
