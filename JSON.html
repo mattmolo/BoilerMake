@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     </head>
 
     <button onclick="httpGet()">Get things</button>
@@ -17,14 +18,11 @@
 
 
     function httpGet() {
-        var req = new XMLHttpRequest();
-        req.onload  = function() {
-            console.log("gfdfs");
-            var jsonResponse = req.responseJSON;  
-            window.alert(jsonResponse.people[0].name);
-        };  
-        req.open("GET", "http://mc.mattmolo.com/stuff.json", false);
-        req.send(null);
+        $.getJSON("http://mc.mattmolo.com/stuff.json", function(data) {
+            console.log(data)
+            console.log(data.toString())
+            console.log(data.people)
+        })
     }
     </script>
 

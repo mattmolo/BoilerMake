@@ -1,6 +1,0 @@
-var jsonThings = {"people": [
-        {"name": "John", "Initial": "L"},
-        {"name": "Matt", "Initial": "M"},
-        {"name": "Flor", "Initial": "A"}
-    ]
-};
