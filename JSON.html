@@ -21,13 +21,13 @@
 
     function httpGet() {
         var req = new XMLHttpRequest();
-        req.open("GET", "http://mc.mattmolo.com/stuff.json", false);
-        req.send(null);
         req.onload  = function() {
+            console.log("gfdfs");
             var jsonResponse = req.responseJSON;  
             window.alert(jsonResponse.people[0].name);
         };  
-        
+        req.open("GET", "http://mc.mattmolo.com/stuff.json", false);
+        req.send(null);
     }
     </script>
 
