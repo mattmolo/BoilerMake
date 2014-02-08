@@ -198,10 +198,9 @@
             $('#k'+k).css("margin-left","3px");
             $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\"></canvas>");
             naming = "canvas"+k;
-            //attribute = getElementById(naming);
-           // attribute.heightShift = (group1[k][0][1] * canvas.width/40);
             //alert(naming);
             canvask = document.getElementById(naming);
+            canvask.heightShift = (group1[k][0][1] * canvas.width/40);
             contextk = canvask.getContext('2d');
             contextk.fillStyle = colorArray[k];
             contextk.fillRect(2,2,24,24);
@@ -214,7 +213,7 @@
       contextLocal.beginPath();
       contextLocal.rect(0,0,28,28);
       contextLocal.lineWidth = 2;
-      contextLocal.strokeStyle = 'black';
+      contextLocal.strokeStyle = 'grey';
       contextLocal.stroke();      
       }
       function squareMouseOut(element)
