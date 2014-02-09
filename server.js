@@ -51,6 +51,12 @@ app.get('/addSymbol', function(req,res) {
 	}
 })
 
+app.get('/reset', function(req,res) {
+	data = null;
+	symbols = symbols.slice(0,3)
+	res.send('OK')
+})
+
 var people = []
 people.push( [ [0,3] , [10,2] , [20,5] , [30,8] , [50,2] ])
 people.push( [ [0,4] , [10,5] , [20,12] , [30,3] , [50,7] ])
