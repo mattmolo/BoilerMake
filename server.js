@@ -1,3 +1,8 @@
+// Helper functions
+function contains(array, object) {
+    return (array.indexOf(object) != -1);
+}
+
 // Server of /pub folder
 var express = require('express');
 var app = express();
@@ -12,19 +17,45 @@ app.listen(8765);
 
 app.use('/', express.static(__dirname + '/'));
 
+var symbols = ['AAPL','MSFT','GOOG']
+var data
+app.get('/stocks', function(req, res) {
+	if(!data) {
+		var stockNames = []
+		symbols.forEach(function(item) {
+			stockNames.push(item + ' US Equity')
+		})
+		bloomberg.magic(stockNames, function(array) {
+			data = array
+			res.json(data)
+		})
+	}
+	else {
+		res.json(data)
+	}	
+})
+
+// Call /stocks at least once before calling this method
+app.get('/addSymbol', function(req,res) {
+	var newSymbol = req.query.symbol || 'AAPL'
+	if(!contains(symbols, newSymbol)) {
+		var newStockName = newSymbol + ' US Equity'
+		bloomberg.magic([newStockName], function(array) {
+			symbols.push(newSymbol)
+			data = data.concat(array)
+			res.json(data)
+		})
+	}
+	else {
+		res.json(data)
+	}
+})
+
 var people = []
 people.push( [ [0,3] , [10,2] , [20,5] , [30,8] , [50,2] ])
 people.push( [ [0,4] , [10,5] , [20,12] , [30,3] , [50,7] ])
 people.push( [ [0,3] , [10,19] , [20,5]  , [30,10] , [50,10] ])
 people.push( [ [0,2] , [20,18]  , [30,5] , [30, 10] , [50,3] ])
-
-app.get('/stocks', function(req, res) {
-	var names = ['AAPL US Equity', 'MSFT US Equity', 'GOOG US Equity'];
-	bloomberg.magic(names, function(array) {
-		res.json(array)
-	})
-})
-
 app.get('/coordinates', function(req, res) {
 	var base = parseInt(req.query.base) || 0
 	var basepoints = people[base]
