@@ -494,7 +494,9 @@
         $.getJSON("/addSymbol?symbol="+$("#Symbol").val(), function(data) {
             $("#nameSection").empty()
             start(data)
-        })
+        }).fail(function(d) {
+            alert("Request Failed (Probably bad symbol");
+            })
       }
             
     </script>
