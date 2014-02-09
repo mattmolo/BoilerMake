@@ -32,6 +32,7 @@
     var colorCounter = 0;
     var colorCounter2 = 0;
     var nameCounter = 0;
+    var deepCopy, deepUser, deepData;
     $.getJSON("/stocks", function(data) {
  //       group1 = data;
      /*  var point1=[0.34,3];
@@ -39,12 +40,12 @@
         var point3=[7,4];
         var point4=[10,1];
         var point5=[12,10];
-        var allPoints=[point1, point2, point3, point4, point5, [20,9],[35,5]];
+        var allPoints=[point1, point2, point3, point4, point5];
         allPoints.color = "#FF4444";
-        var user2=[[0.35,5],[5,19],[7,15],[10,10],[12,15],[20,8],[35,1]];
-        var user3  = [[0.35, 10], [10, 14], [15,14], [20, 29.3]];
-        var user4 = [[0.35, 15], [12, 6]];
-        var user5 = [[0.35, 18], [25, 17], [40,2], [60,21]];
+        var user2=[[0.35,5],[5,19],[7,5],[10,10],[12,15]];
+        var user3  = [[0.35, 10], [5, 14], [7,14], [10, 5], [12,20]];
+        var user4 = [[0.35, 15], [5, 6], [7,10], [10, 10], [12, 10]];
+        var user5 = [[0.35, 18], [5, 17], [7,2], [10,21], [12,2]];
         user2.color = "#AA66CC";
         group1 = [allPoints, user2, user3, user4, user5];
         
@@ -61,7 +62,9 @@
             }
             group1.push(user);
         }
-        //console.log(group1)
+        //console.log(group1) 
+        invertData(group1);
+        evaluateData(group1, "test");
         initializeWhole();
     })
 
@@ -88,8 +91,8 @@
         canvas.height = myHeight;
         context.fillStyle = backgroundColor;
         context.fillRect(0,0, myWidth, myHeight);
-        invertData(group1);
-        renderGroup(group1);
+        //invertData(group1);
+        renderGroup(deepCopy);//group1);
         renderUser();
         initializeAxis(myHeight, myWidth);
         $('#nameSection').height(myHeight); 
@@ -118,7 +121,7 @@
         context.stroke();
         $('#nameSection').empty();
         $('#nameSection').height(myHeight);
-        renderGroup(group1);
+        renderGroup(deepCopy);//group1);
         renderUser();
         initializeAxis(myHeight, myWidth);
         leftBar();
@@ -227,17 +230,17 @@
       {
       //Renders the left bar with the highlightable squares.
       var naming, canvask, contextk, attribute;
-        for (var k = 0; k < group1.length; k++)
+        for (var k = 0; k < deepCopy.length; k++)
         {
             $('#nameSection').append("<div id=\"k" + k + "\" ></div>");
             $('#k'+k).css("position", 'absolute');
-            $('#k'+k).css("margin-top",(group1[k][0][1] * canvas.height/30 - 13) + "px");
+            $('#k'+k).css("margin-top",(deepCopy[k][0][1] * canvas.height/30 - 13) + "px");
             $('#k'+k).css("margin-left","3px");
             $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\"></canvas>");
             naming = "canvas"+k;
             //alert(naming);
             canvask = document.getElementById(naming);
-            canvask.heightShift = (group1[k][0][1] * canvas.height/30);
+            canvask.heightShift = (deepCopy[k][0][1] * canvas.height/30);
             canvask.colorID = colorArray[k];
             canvask.userID = group1names[k];
             contextk = canvask.getContext('2d');
@@ -367,15 +370,90 @@
       }
       function invertData(grouped)
       {
-        // for(var i = 0; i < grouped.length; i++)
-        // {
-        //     for(var j = 0; j < grouped[i].length; j++)
-        //     {
-        //         grouped[i][j][1] = Math.abs(29.3 - grouped[i][j][1]);
-        //     }
-        // }
+         for(var i = 0; i < grouped.length; i++)
+         {
+             for(var j = 0; j < grouped[i].length; j++)
+             {
+                 grouped[i][j][1] = Math.abs(29.3 - grouped[i][j][1]);
+             }
+         }
       }
+      function evaluateData(grouped, baseName)
+      {
+      //GOAL: Deep Copies the whole array and makes one set of values at base, which is myHeight/2. Creates scaled values for graphing and scales everything by those amounts. 
+        //MAKE THESE GLOBAL
+        var maxValue;
+        var minValue;
+        var midValue;
+        var baseLocation = 0;
+        deepCopy = [];
+        deepUser = [];
+        //deepData = [];
+        var comparisonArray = [];
+        for (var i = 0; i < grouped.length; i++)
+        {
+        deepData = [];
+            for (var j = 0; j < grouped[i].length; j++)
+            {
+                if ((i == 0) && (j == 0))
+                {
+                    maxValue = grouped[i][j][1];
+                    minValue = grouped[i][j][1];
 
+                }
+                if (grouped[i][j][1] > maxValue)
+                {
+                    maxValue = grouped[i][j][1];
+                }
+                if (grouped[i][j][1] < minValue)
+                {
+                    minValue = grouped[i][j][1];
+                }
+                deepData.push([grouped[i][j][0],grouped[i][j][1]]);
+            }
+            //deepUser.push(deepData);
+            deepCopy.push(deepData);
+        }
+        midValue = (maxValue + minValue) / 2;
+
+        console.log(deepCopy);
+          for(i = 0; i < group1names.length; i++)
+          {
+            if (group1names == baseName)
+            {
+                baseLocation = i;
+            }
+          }
+          //CREATES COMPARISON ARRAY
+         // for(i = 0; i < deepCopy[baseLocation].length; i++)
+         // {
+            //comparisonArray.push([deepCopy[baseLocation][i][0], deepCopy[baseLocation][i][1]]);
+            comparisonArray = $.extend(true, [], deepCopy[baseLocation])
+         // }
+         
+          //Below makes comparisons vs the comparison Array
+          for(i = 0; i < comparisonArray.length; i++)
+          {
+            for(j = 0; j < deepCopy.length; j++)
+            {
+                if(j != baseLocation)
+                {
+                    if(minValue < 0)
+                    {
+                    deepCopy[j][i][1] += -minValue;
+                    }
+                    deepCopy[j][i][1] = ((deepCopy[j][i][1] - comparisonArray[i][1])/(maxValue - minValue))*14;
+                    deepCopy[j][i][1] += 15;
+                }
+                else
+                {
+                    deepCopy[j][i][1] = 15;
+                }
+                
+            }
+        }
+        //console.log(deepCopy);
+      }
     </script>
   </body>
 </html>
