@@ -20,7 +20,7 @@
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
     var myWidth = 0, myHeight = 0;
-    var group1;
+    var group1, group1names;
     var shiftedPoints;
     var referenceShiftX = canvas.width/10;
     var referenceShiftY = canvas.height/10;
@@ -49,18 +49,19 @@
         group1 = [allPoints, user2, user3, user4, user5];
         
         group1names = ["allPoints", "user2", "user3", "user4", "user5"];*/
-        var group1 = [];
-        var group1names = [];
+        group1 = [];
+        group1names = [];
         for(var p = 0; p < data.length; p++)
         {
             group1names.push(data[p].name);
             var user = []
-            for(var q = 0; q < data.prices.length; q++)
+            for(var q = 0; q < data[p].prices.length; q++)
             {
-                user.push(data[p].prices[q]);
+                user.push([data[p].prices[q][0] , data[p].prices[q][1] / 100.0]);
             }
             group1.push(user);
         }
+        //console.log(group1)
         initializeWhole();
     })
 
@@ -366,13 +367,13 @@
       }
       function invertData(grouped)
       {
-        for(var i = 0; i < grouped.length; i++)
-        {
-            for(var j = 0; j < grouped[i].length; j++)
-            {
-                grouped[i][j][1] = Math.abs(29.3 - grouped[i][j][1]);
-            }
-        }
+        // for(var i = 0; i < grouped.length; i++)
+        // {
+        //     for(var j = 0; j < grouped[i].length; j++)
+        //     {
+        //         grouped[i][j][1] = Math.abs(29.3 - grouped[i][j][1]);
+        //     }
+        // }
       }
 
     </script>

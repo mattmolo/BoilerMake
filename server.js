@@ -10,7 +10,7 @@ app.use(function(req, res, next) {
 
 app.listen(8765);
 
-app.use('/static', express.static(__dirname + '/'));
+app.use('/', express.static(__dirname + '/'));
 
 var people = []
 people.push( [ [0,3] , [10,2] , [20,5] , [30,8] , [50,2] ])
