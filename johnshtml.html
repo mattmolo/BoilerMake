@@ -355,7 +355,7 @@
 
             var canvasData = document.createElement('canvas');
             canvasData.id="newId2";
-            canvasData.width = 100 + names.length * 8;
+            canvasData.width = 70 + names.length * 8;
             canvasData.height = 20;
             canvasData.style.position = "absolute";
             if(((x+28)+canvasData.width) > myWidth)
@@ -371,7 +371,7 @@
             var canvasDataCtx = canvasData.getContext('2d');
             canvasDataCtx.font = "15px Tahoma";
             canvasDataCtx.fillStyle=color;
-            canvasDataCtx.fillRect(0,0,100 + names.length * 8,20);
+            canvasDataCtx.fillRect(0,0,70 + names.length * 8,20);
             canvasDataCtx.fillStyle = 'black';
             canvasDataCtx.fillText(names+" [ $"+realPrice+" ] ",5,15);
         };
