@@ -200,9 +200,14 @@
         }
         colorCounter2++;
         nameCounter++;
+
+        if (context.setLineDash) {
         context.setLineDash([5]);
+        }
         calculatePath(shifted[shifted.length-1], [shifted[shifted.length-1][0]+myWidth,shifted[shifted.length-1][1]], 5);
-        context.setLineDash([0])
+        if (context.setLineDash) {
+        context.setLineDash([0]);
+        }
       }
       function shiftPoints(allPoints, scale)
       //shifts the points so that resizing can alter the graphics. This sets the base value by which all of the graph changes.
