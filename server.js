@@ -17,7 +17,7 @@ app.listen(8765);
 
 app.use('/', express.static(__dirname + '/'));
 
-var symbols = ['KO','NDLS','MSFT']
+var symbols = ['GE']//['KO','NDLS','MSFT']
 var data
 app.get('/stocks', function(req, res) {
 	if(!data) {
@@ -41,8 +41,13 @@ app.get('/addSymbol', function(req,res) {
 	if(!contains(symbols, newSymbol)) {
 		var newStockName = newSymbol + ' US Equity'
 		bloomberg.magic([newStockName], function(array) {
-			symbols.push(newSymbol)
-			data = data.concat(array)
+			if(array && array[0].name) {			
+				symbols.push(newSymbol)
+				data = data.concat(array)
+			}
+			else {
+				console.log('Couldnt find stock')
+			}
 			res.json(data)
 		})
 	}
@@ -53,7 +58,7 @@ app.get('/addSymbol', function(req,res) {
 
 app.get('/reset', function(req,res) {
 	data = null;
-	symbols = symbols.slice(0,3)
+	symbols = symbols.slice(0,1)
 	res.send('OK')
 })
 

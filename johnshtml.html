@@ -10,13 +10,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body style="overflow: hidden;">
+    <div style="font-family:Tahoma; font-size:15px; position:absolute; right:20px;">
+        Add New Stock: <input type="text" id="Symbol">
+        <button onclick="addNewStock()"> add </button>
+    </div>
     <div id="nameSection" style="float: left;" width=10%>
-        <div style="font-family:Tahoma; font-size:15px; position:absolute; margin-left:90%">
-            <form name="form1">
-            Add New Stock: <input type="text" name="symbol">
-            <input id="Sub" type="submit" value="Submit">
-            </form>
-        </div>
     </div>
     <div style="margin-left: 25px">
     <canvas id="myCanvas" width="1920" height="1080"></canvas>
@@ -61,6 +59,8 @@
         group1 = [allPoints, user2, user3, user4, user5];
         
         group1names = ["allPoints", "user2", "user3", "user4", "user5"];*/
+        nameCounter = 0
+
         realData = data
         group1 = [];
         group1names = [];
@@ -470,11 +470,12 @@
       }
       function changeBase(element)
       {
-        evaluateData(group1, element.userID);
-        squareMouseOut(element)
+        if(element) {
+          evaluateData(group1, element.userID);
+          squareMouseOut(element)
+        }
         for(var j = 0; j < deepCopy.length; j++)
         {
-
             $("#canvas"+j).remove();
         }
         initializeWhole();
@@ -487,13 +488,14 @@
                 }
         }
       }
-      $(function(){
-        $('form[name=form1]').submit(function(){
-            $.getJSON('/addSymbol?symbol='+$("#Sub").val(), function(data) {
-                start(data)
-            })
+
+      function addNewStock() {
+        console.log("here")
+        $.getJSON("/addSymbol?symbol="+$("#Symbol").val(), function(data) {
+            $("#nameSection").empty()
+            start(data)
         })
-    })
+      }
             
     </script>
   </body>
