@@ -44,11 +44,12 @@ app.get('/addSymbol', function(req,res) {
 			if(array && array[0].name) {			
 				symbols.push(newSymbol)
 				data = data.concat(array)
+				res.json(data)
 			}
 			else {
 				console.log('Couldnt find stock')
+				res.send(404)
 			}
-			res.json(data)
 		})
 	}
 	else {
