@@ -1,13 +1,14 @@
 // Server of /pub folder
 var express = require('express');
 var app = express();
+var bloomberg = require('./bloomberg.js')
 
 app.use(function(req, res, next) {
   console.log(req.method + ' ' + req.url);
   next();
 });
 
-app.listen(8000);
+app.listen(8765);
 
 app.use('/static', express.static(__dirname + '/'));
 
@@ -16,6 +17,13 @@ people.push( [ [0,3] , [10,2] , [20,5] , [30,8] , [50,2] ])
 people.push( [ [0,4] , [10,5] , [20,12] , [30,3] , [50,7] ])
 people.push( [ [0,3] , [10,19] , [20,5]  , [30,10] , [50,10] ])
 people.push( [ [0,2] , [20,18]  , [30,5] , [30, 10] , [50,3] ])
+
+app.get('/stocks', function(req, res) {
+	var names = ['AAPL US Equity', 'MSFT US Equity', 'GOOG US Equity'];
+	bloomberg.magic(names, function(array) {
+		res.json(array)
+	})
+})
 
 app.get('/coordinates', function(req, res) {
 	var base = parseInt(req.query.base) || 0
