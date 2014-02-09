@@ -458,6 +458,14 @@
       {
         evaluateData(group1, element.userID);
         initializeWhole();
+        for(var i = 0; i < group1names.length; i++)
+        {
+            colorCounter++;
+            if (colorCounter == colorArray.length)
+                {
+                    colorCounter = 0;
+                }
+        }
       }
     </script>
   </body>
