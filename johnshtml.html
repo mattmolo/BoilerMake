@@ -12,7 +12,8 @@
   <body style="overflow: hidden;">
     <div style="font-family:Tahoma; font-size:15px; position:absolute; right:20px;">
         Add New Stock: <input type="text" id="Symbol">
-        <button onclick="addNewStock()"> add </button>
+        <button onclick="addNewStock()"> add </button> |
+        <button onclick="destroy()"> reset </button>
     </div>
     <div id="nameSection" style="float: left;" width=10%>
     </div>
@@ -490,12 +491,20 @@
       }
 
       function addNewStock() {
-        console.log("here")
         $.getJSON("/addSymbol?symbol="+$("#Symbol").val(), function(data) {
             $("#nameSection").empty()
             start(data)
-        }).fail(function(d) {
+        }).fail( function(data) {
             alert("Request Failed! (Probably bad symbol)");
+        })
+      }
+
+      function destroy() {
+        $.get("/destroy", function(data) {
+            $.getJSON("/stocks", function(data) {
+                $("#nameSection").empty()
+                start(data)
+            })
         })
       }
             
