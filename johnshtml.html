@@ -93,7 +93,7 @@
         context.fillRect(0,0, myWidth, myHeight);
         //invertData(group1);
         renderGroup(deepCopy);//group1);
-        renderUser();
+        //renderUser();
         initializeAxis(myHeight, myWidth);
         $('#nameSection').height(myHeight); 
         leftBar();
@@ -122,7 +122,7 @@
         $('#nameSection').empty();
         $('#nameSection').height(myHeight);
         renderGroup(deepCopy);//group1);
-        renderUser();
+        //renderUser();
         initializeAxis(myHeight, myWidth);
         leftBar();
       }
@@ -459,9 +459,11 @@
       function changeBase(element)
       {
         evaluateData(group1, element.userID);
+        squareMouseOut(element)
         for(var j = 0; j < deepCopy.length; j++)
         {
-            $("k"+j).remove();
+
+            $("#canvas"+j).remove();
         }
         initializeWhole();
         for(var i = 0; i < group1names.length; i++)
