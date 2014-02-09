@@ -236,7 +236,7 @@
             $('#k'+k).css("position", 'absolute');
             $('#k'+k).css("margin-top",(deepCopy[k][0][1] * canvas.height/30 - 13) + "px");
             $('#k'+k).css("margin-left","3px");
-            $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\"></canvas>");
+            $('#k'+k).append("<canvas id=\"canvas" + k + "\" onmouseover=\"squareMouseOver(this)\" width=\"35\" height=\"35\" onmouseout=\"squareMouseOut(this)\" onclick=\"changeBase(this)\"></canvas>");
             naming = "canvas"+k;
             //alert(naming);
             canvask = document.getElementById(naming);
@@ -419,7 +419,7 @@
         console.log(deepCopy);
           for(i = 0; i < group1names.length; i++)
           {
-            if (group1names == baseName)
+            if (group1names[i] == baseName)
             {
                 baseLocation = i;
             }
@@ -453,6 +453,11 @@
             }
         }
         //console.log(deepCopy);
+      }
+      function changeBase(element)
+      {
+        evaluateData(group1, element.userID);
+        initializeWhole();
       }
     </script>
   </body>
