@@ -69,6 +69,9 @@ app.get('/destroy', function(req,res) {
 	res.send('OK')
 })
 
+var fs = require('fs')
+var index = fs.readFileSync('splash.html');
 app.get('*', function(req, res) {
-  	res.send(404,'nothing here');
+  	res.writeHead(200, {'Content-Type': 'text/html'});
+  	res.end(index);
 });
