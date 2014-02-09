@@ -10,7 +10,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body style="overflow: hidden;">
-    <div id="nameSection" style="float: left; background-color: red" width=10%>
+    <div id="nameSection" style="float: left;" width=10%>
+        <div style="font-family:Tahoma; font-size:15px; position:absolute; margin-left:90%">
+            <form name="form1">
+            Add New Stock: <input type="text" name="symbol">
+            <input id="Sub" type="submit" value="Submit">
+            </form>
+        </div>
     </div>
     <div style="margin-left: 25px">
     <canvas id="myCanvas" width="1920" height="1080"></canvas>
@@ -34,6 +40,10 @@
     var nameCounter = 0;
     var deepCopy, deepUser, deepData;
     $.getJSON("/stocks", function(data) {
+        start(data);
+    })
+    
+    function start(data) {
  //       group1 = data;
      /*  var point1=[0.34,3];
         var point2=[5, 2];
@@ -66,7 +76,7 @@
         invertData(group1);
         evaluateData(group1, "test");
         initializeWhole();
-    })
+    }
 
     window.onresize=function(){
       reinitializeWhole();
@@ -476,6 +486,14 @@
                 }
         }
       }
+      $(function(){
+        $('form[name=form1]').submit(function(){
+            $.getJSON('/addSymbol?symbol='+$("#Sub").val(), function(data) {
+                start(data)
+            })
+        })
+    })
+            
     </script>
   </body>
 </html>
