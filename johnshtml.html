@@ -504,7 +504,11 @@
             $.getJSON("/stocks", function(data) {
                 $("#nameSection").empty()
                 start(data)
+            }).fail( function(data) {
+                alert("Couldn't get initial stocks");
             })
+        }).fail( function(data) {
+            alert("Reset didn't work");
         })
       }
             
