@@ -1,0 +1,73 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 432 (0x1b0)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=NY, L=New York, O=Bloomberg LP, OU=CTO Office, CN=OpenVPN CA/name= /emailAddress=open-tech@bloomberg.net
+        Validity
+            Not Before: Jan 28 22:29:37 2014 GMT
+            Not After : Feb 13 22:29:37 2014 GMT
+        Subject: C=US, ST=NY, L=New York, O=Bloomberg LP, OU=CTO Office, CN=boilermake_feb_2014_20/emailAddress=open-tech@bloomberg.net
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:b9:87:7b:ee:b5:43:61:2c:47:ed:54:99:b2:21:
+                    84:a4:c5:f3:a6:54:dd:15:cc:98:e0:7d:fe:bb:a8:
+                    b2:90:9d:fc:10:7e:51:94:d9:58:22:2c:9f:2a:8e:
+                    5b:8d:44:39:ad:3c:e8:65:a5:b3:26:b7:d2:5e:10:
+                    73:e0:d5:25:03:76:22:43:99:c7:b0:ed:8f:ab:da:
+                    ad:e3:08:59:c6:bf:42:68:25:cb:00:62:f2:74:24:
+                    09:6f:92:d3:23:7f:e4:06:5d:40:a9:2f:8f:25:09:
+                    e0:d7:d7:66:39:1e:12:74:b3:3a:cf:25:eb:fa:6e:
+                    c5:3d:11:a2:7d:1d:02:e7:a9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                FE:5B:9E:3F:CC:44:CD:50:92:4D:75:FF:13:B5:C7:B2:80:82:E2:DC
+            X509v3 Authority Key Identifier: 
+                keyid:2E:0C:F6:33:CF:90:21:2E:B6:FF:B6:FF:79:32:D3:D0:E7:65:73:41
+                DirName:/C=US/ST=NY/L=New York/O=Bloomberg LP/OU=CTO Office/CN=OpenVPN CA/name= /emailAddress=open-tech@bloomberg.net
+                serial:93:EC:2A:F2:5B:95:06:DD
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha1WithRSAEncryption
+         52:25:8f:7c:98:0c:60:5c:dc:6e:d5:02:c8:23:28:60:3e:2a:
+         44:26:3e:5e:a5:f6:e0:d3:20:3a:46:4c:70:93:64:b8:aa:73:
+         bd:26:5f:ee:15:6b:ba:8a:98:1e:19:d2:94:6d:a9:ab:7e:6a:
+         f6:ab:06:b5:b7:0a:ab:27:f5:c3:ae:2b:35:ee:ea:78:80:8a:
+         25:4b:07:fa:66:d0:f0:3e:b0:3b:b7:cd:b0:b4:20:05:ec:d2:
+         ef:41:a3:e0:ca:20:ef:98:77:58:02:07:89:81:5a:36:80:84:
+         3c:86:f3:fc:d3:0a:33:87:a6:42:33:d5:0b:16:cc:99:07:7c:
+         df:ab
+-----BEGIN CERTIFICATE-----
+MIIEGDCCA4GgAwIBAgICAbAwDQYJKoZIhvcNAQEFBQAwgaIxCzAJBgNVBAYTAlVT
+MQswCQYDVQQIEwJOWTERMA8GA1UEBxMITmV3IFlvcmsxFTATBgNVBAoTDEJsb29t
+YmVyZyBMUDETMBEGA1UECxMKQ1RPIE9mZmljZTETMBEGA1UEAxMKT3BlblZQTiBD
+QTEKMAgGA1UEKRMBIDEmMCQGCSqGSIb3DQEJARYXb3Blbi10ZWNoQGJsb29tYmVy
+Zy5uZXQwHhcNMTQwMTI4MjIyOTM3WhcNMTQwMjEzMjIyOTM3WjCBojELMAkGA1UE
+BhMCVVMxCzAJBgNVBAgTAk5ZMREwDwYDVQQHEwhOZXcgWW9yazEVMBMGA1UEChMM
+Qmxvb21iZXJnIExQMRMwEQYDVQQLEwpDVE8gT2ZmaWNlMR8wHQYDVQQDFBZib2ls
+ZXJtYWtlX2ZlYl8yMDE0XzIwMSYwJAYJKoZIhvcNAQkBFhdvcGVuLXRlY2hAYmxv
+b21iZXJnLm5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuYd77rVDYSxH
+7VSZsiGEpMXzplTdFcyY4H3+u6iykJ38EH5RlNlYIiyfKo5bjUQ5rTzoZaWzJrfS
+XhBz4NUlA3YiQ5nHsO2Pq9qt4whZxr9CaCXLAGLydCQJb5LTI3/kBl1AqS+PJQng
+19dmOR4SdLM6zyXr+m7FPRGifR0C56kCAwEAAaOCAVkwggFVMAkGA1UdEwQCMAAw
+LQYJYIZIAYb4QgENBCAWHkVhc3ktUlNBIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZTAd
+BgNVHQ4EFgQU/lueP8xEzVCSTXX/E7XHsoCC4twwgdcGA1UdIwSBzzCBzIAULgz2
+M8+QIS62/7b/eTLT0Odlc0GhgaikgaUwgaIxCzAJBgNVBAYTAlVTMQswCQYDVQQI
+EwJOWTERMA8GA1UEBxMITmV3IFlvcmsxFTATBgNVBAoTDEJsb29tYmVyZyBMUDET
+MBEGA1UECxMKQ1RPIE9mZmljZTETMBEGA1UEAxMKT3BlblZQTiBDQTEKMAgGA1UE
+KRMBIDEmMCQGCSqGSIb3DQEJARYXb3Blbi10ZWNoQGJsb29tYmVyZy5uZXSCCQCT
+7CryW5UG3TATBgNVHSUEDDAKBggrBgEFBQcDAjALBgNVHQ8EBAMCB4AwDQYJKoZI
+hvcNAQEFBQADgYEAUiWPfJgMYFzcbtUCyCMoYD4qRCY+XqX24NMgOkZMcJNkuKpz
+vSZf7hVruoqYHhnSlG2pq35q9qsGtbcKqyf1w64rNe7qeICKJUsH+mbQ8D6wO7fN
+sLQgBezS70Gj4Mog75h3WAIHiYFaNoCEPIbz/NMKM4emQjPVCxbMmQd836s=
+-----END CERTIFICATE-----
