@@ -44,7 +44,7 @@
         var user2=[[0.34,5],[5,19],[7,15],[10,10],[12,15],[20,8],[35,1]];
         var user3  = [[0.34, 10], [10, 14], [15,14], [20, 20]];
         var user4 = [[0.34, 15], [12, 6]];
-        var user5 = [[0.34, 18], [25, 17]];
+        var user5 = [[0.34, 18], [25, 17], [60,2]];
         user2.color = "#AA66CC";
         group1 = [allPoints, user2, user3, user4, user5];
         group1names = ["allPoints", "user2", "user3", "user4", "user5"];
@@ -56,7 +56,7 @@
       reinitializeWhole();
     }
     function initializeWhole(){
-        //Initializes 
+        //Initializes the entire graphics for one iteration. THIS DOESNT TAKE ACCOUNT RESIZING.
         if( typeof( window.innerWidth ) == 'number' ) {
         //Non-IE
         myWidth = window.innerWidth;
@@ -82,6 +82,7 @@
         leftBar();
       }
       function reinitializeWhole(){
+      //This takes the resizing and re-renders the whole screen for every time you resize.
           if( typeof( window.innerWidth ) == 'number' ) {
             //Non-IE
             myWidth = window.innerWidth;
@@ -110,6 +111,7 @@
         leftBar();
       }
       function initializeAxis(screenHeight, screenWidth)
+      //Adds the axis bars on the bottom and left.
       {
             context.beginPath();
             context.moveTo(10, 0);
@@ -121,6 +123,7 @@
             context.stroke();
       }
       function calculatePath(point1, point2, lineWidth){
+      //The base function to make the curved lines connecting points. This shouldn't be tampered with.
       tempPoint1 = [point1[0], point1[1]];
       tempPoint1[0] -= 3;
       context.beginPath();
@@ -143,6 +146,7 @@
       context.stroke();
       }
       function renderSet(shifted)
+      //Renders a set of points (per user or stock). Basically one set of connected lines.
       {
         var i = 0;
         if (colorCounter2 == 10)
@@ -166,6 +170,7 @@
         context.setLineDash([0])
       }
       function shiftPoints(allPoints, scale)
+      //shifts the points so that resizing can alter the graphics. This sets the base value by which all of the graph changes.
       {
         shiftedPoints = [];
         for(var i = 0; i < allPoints.length; i++)
@@ -177,6 +182,7 @@
       }
       function renderUser()
       {
+      //Renders the bottom Line (with the arrow tip). can be changed easily anytime.
         color = "#99CC00";
         var newSet = [ [15 , myHeight-20], [myWidth - 55, myHeight-20]];
         calculatePath(newSet[0], newSet[1], 5);
@@ -185,6 +191,7 @@
         calculatePath([newSet[1][0]+3,newSet[1][1]], [newSet[1][0]-10,newSet[1][1]+10], 5);
       }
       function renderGroup(group)
+      //renders an entire set of users/stock names. Uses other functions for sub-rendering.
       {
         for(var i = 0; i < group.length; i++)
         {
@@ -201,6 +208,7 @@
       }
       function leftBar()
       {
+      //Renders the left bar with the highlightable squares.
       var naming, canvask, contextk, attribute;
         for (var k = 0; k < group1.length; k++)
         {
@@ -222,6 +230,7 @@
         }
       }
       function squareMouseOver(element)
+      //Deals with the mouseover event on the left side of the screen. Much complicate. Such time used up. Wow.
       {
           var contextLocal = element.getContext('2d');
           contextLocal.beginPath();
@@ -252,6 +261,7 @@
           newCanvasCtx.fillText(element.userID,2,35);
       }
       function squareMouseOut(element)
+      //Deletes the canvas created by the mouseover;
       {
           var contextLocal = element.getContext('2d');
           contextLocal.beginPath();
@@ -263,6 +273,7 @@
           //alert("removed element");
       }
       function hexToRgb(hex) {
+      //Converts a hex color code into 3 values of rgb.
         // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
         var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
         hex = hex.replace(shorthandRegex, function(m, r, g, b) {
@@ -278,7 +289,7 @@
       }   
       function createHoverableDot(x,y,radius,color,names)
       {
-      
+      //Creates the dot that goes over the nodes. This is a set of 2 canvases that represent a hoverable space along with the rendered overlay. The rendered overlay is only temporary. The space is not.
         var canvasTemp = document.createElement('canvas');
         canvasTemp.width = radius*4;
         canvasTemp.height = radius*4;
