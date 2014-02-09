@@ -92,13 +92,6 @@ var getPrices = function(stockNames, callback) {
 
 }
 
-// var arg = ['AAPL US Equity', 'MSFT US Equity', 'GOOG US Equity']
-// getPrices(arg, function(data) {
-// 	arg.forEach(function(name) {
-// 		console.log(data[name])
-// 	})
-// })
-
 exports.magic = function(stockNames, callback) {
 	var array = []
 	getPrices(stockNames, function(data) {
@@ -107,5 +100,4 @@ exports.magic = function(stockNames, callback) {
 		})
 		callback(array)
 	})
-	//callback(array)
 }
