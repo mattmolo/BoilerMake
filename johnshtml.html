@@ -214,6 +214,7 @@
       //renders an entire set of users/stock names. Uses other functions for sub-rendering.
       {
         colorCounter = 0;
+        colorCounter2 = 0;
         for(var i = 0; i < group.length; i++)
         {
             if (colorCounter == colorArray.length)
@@ -458,6 +459,7 @@
       function changeBase(element)
       {
         evaluateData(group1, element.userID);
+        squareMouseOut(element);
         initializeWhole();
         for(var i = 0; i < group1names.length; i++)
         {
