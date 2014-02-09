@@ -17,7 +17,7 @@ app.listen(8765);
 
 app.use('/', express.static(__dirname + '/'));
 
-var symbols = ['AAPL','MSFT','GOOG']
+var symbols = ['KO','NDLS','MSFT']
 var data
 app.get('/stocks', function(req, res) {
 	if(!data) {
