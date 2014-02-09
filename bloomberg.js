@@ -73,7 +73,7 @@ var getPrices = function(stockNames, callback) {
 	    
 	    if(m.correlations[0].value === 101) {
 	    	m.data.securityData.fieldData.forEach(function(item, i) {
-	    		obj[m.data.securityData.security].prices.push( {date: i*2 + 0.34, price: item.PX_LAST } )
+	    		obj[m.data.securityData.security].prices.push( [i*2 + 0.34, item.PX_LAST] )
 	    	})
 	    }	    
 
