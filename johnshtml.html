@@ -459,7 +459,10 @@
       function changeBase(element)
       {
         evaluateData(group1, element.userID);
-        squareMouseOut(element);
+        for(var j = 0; j < deepCopy.length; j++)
+        {
+            $("k"+j).remove();
+        }
         initializeWhole();
         for(var i = 0; i < group1names.length; i++)
         {
