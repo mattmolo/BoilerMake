@@ -372,7 +372,7 @@
             canvasDataCtx.fillStyle=color;
             canvasDataCtx.fillRect(0,0,100 + names.length * 8,20);
             canvasDataCtx.fillStyle = 'black';
-            canvasDataCtx.fillText(names+" ["+Math.round(x)+" , $"+realPrice+"] ",5,15);
+            canvasDataCtx.fillText(names+" [ $"+realPrice+" ] ",5,15);
         };
         canvasTemp.onmouseout = function deleteDotOverlay()
           {
