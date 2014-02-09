@@ -178,7 +178,7 @@
       function renderUser()
       {
         color = "#99CC00";
-        var newSet = [ [15 , myHeight-20], [myWidth - 20, myHeight-20]];
+        var newSet = [ [15 , myHeight-20], [myWidth - 55, myHeight-20]];
         calculatePath(newSet[0], newSet[1], 5);
         //arrow calculating
         calculatePath([newSet[1][0]+3,newSet[1][1]], [newSet[1][0]-10,newSet[1][1]-10], 5);
@@ -213,6 +213,7 @@
             //alert(naming);
             canvask = document.getElementById(naming);
             canvask.heightShift = (group1[k][0][1] * canvas.height/30);
+            canvask.colorID = colorArray[k];
             canvask.userID = group1names[k];
             contextk = canvask.getContext('2d');
             contextk.fillStyle = colorArray[k];
@@ -242,9 +243,10 @@
           //alert(newCanvasCtx);
           newCanvasCtx.font = "15px Tahoma";
           newCanvasCtx.fillStyle = colorArray[Math.floor((Math.random()*5))];
-          var rgb = hexToRgb(newCanvasCtx.fillStyle);
-          newCanvasCtx.fillStyle = "rgba(" + rgb["r"] + "," +rgb["g"] + "," + rgb["b"] + ",1)";
+          //var rgb = hexToRgb(newCanvasCtx.fillStyle);
+          //newCanvasCtx.fillStyle = "rgba(" + rgb["r"] + "," +rgb["g"] + "," + rgb["b"] + ",1)";
           //newCanvasCtx.fillStyle = "rgba(0, 153, 204, 0.6)";
+          newCanvasCtx.fillStyle = element.colorID;
           newCanvasCtx.fillRect(0,20,100,20);
           newCanvasCtx.fillStyle = "rgba(0, 0, 0, 1)";
           newCanvasCtx.fillText(element.userID,2,35);
@@ -329,7 +331,6 @@
           element1.parentNode.removeChild(element1);
           };
       }
-
 
     </script>
   </body>
